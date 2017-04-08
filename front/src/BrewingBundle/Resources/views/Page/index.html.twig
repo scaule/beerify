@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <div class="col-md-12">
+                        <h3>Current Brewing</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div>
+                                <button id="brewing-autorefresh" class="btn-success">Autorefresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Profiles</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    {% for profil in profils %}
+                        <article class="media event">
+                            <div class="media-body">
+                                <a class="title" href="#">{{ profil.name }}</a>
+                                <p>{{ profil.description }}</p>
+                                <p>Temperatures : {{ profil.temperatures }}</p>
+                                <p>Timing : {{ profil.timing }}</p>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+brewing:
+    resource: "@BrewingBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@BrewingBundle/Resources/config/routing.yml'
