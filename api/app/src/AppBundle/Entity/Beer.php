@@ -49,6 +49,12 @@ class Beer
      */
     private $brewingCartography;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="FermentingCartography")
+     */
+    private $fermentingCartography;
+
     /**
      * Get id
      *
@@ -137,6 +143,22 @@ class Beer
     public function setBrewingCartography($brewingCartography)
     {
         $this->brewingCartography = $brewingCartography;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFermentingCartography()
+    {
+        return $this->fermentingCartography;
+    }
+
+    /**
+     * @param mixed $fermentingCartography
+     */
+    public function setFermentingCartography($fermentingCartography)
+    {
+        $this->fermentingCartography = $fermentingCartography;
     }
 }
 

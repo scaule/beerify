@@ -10,10 +10,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * BrewingCartography
  *
  * @ApiResource()
- * @ORM\Table(name="brewing_cartography")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BrewingCartographyRepository")
+ * @ORM\Table(name="fermenting_cartography")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FermentingCartographyRepository")
  */
-class BrewingCartography
+class FermentingCartography
 {
     /**
      * @var int
