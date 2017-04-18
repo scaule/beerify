@@ -1,7 +1,0 @@
-index:
-   path: /
-   defaults:  { _controller: BrewingBundle:Default:index }
-
-current_brewing:
-   path: /api/brewing/last
-   defaults:  { _controller: BrewingBundle:Default:getCurrentBrewing }

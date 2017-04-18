@@ -56,6 +56,15 @@ class Beer
     private $fermentingCartography;
 
     /**
+     * Beer constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+
+    /**
      * Get id
      *
      * @return int

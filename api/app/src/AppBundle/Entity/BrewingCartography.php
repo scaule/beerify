@@ -19,7 +19,7 @@ class BrewingCartography
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
-     * @ORM\Id 
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -38,10 +38,20 @@ class BrewingCartography
     private $isDefault;
 
     /**
-     * @var array
+     * @var bool[]
      * @ORM\Column(name="temperatures", type="json_array")
      */
     private $temperatures;
+
+    /**
+     * BrewingCartography constructor.
+     * @param bool $isDefault
+     */
+    public function __construct()
+    {
+        $this->isDefault = false;
+    }
+
 
     /**
      * Get id

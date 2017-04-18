@@ -111,12 +111,22 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $this->redirect($pathinfo.'/', 'index');
             }
 
-            return array (  '_controller' => 'BrewingBundle\\Controller\\DefaultController::indexAction',  '_route' => 'index',);
+            return array (  '_controller' => 'BrewingBundle\\Controller\\ListerController::indexAction',  '_route' => 'index',);
         }
 
-        // current_brewing
+        // brewing_cartography_list
+        if ($pathinfo === '/list/brewing-cartography') {
+            return array (  '_controller' => 'BrewingBundle\\Controller\\ListerController::listCartographyAction',  '_route' => 'brewing_cartography_list',);
+        }
+
+        // get_last_brewing
         if ($pathinfo === '/api/brewing/last') {
-            return array (  '_controller' => 'BrewingBundle\\Controller\\DefaultController::getCurrentBrewingAction',  '_route' => 'current_brewing',);
+            return array (  '_controller' => 'BrewingBundle\\Controller\\ListerController::getCurrentBeerBrewingAction',  '_route' => 'get_last_brewing',);
+        }
+
+        // build_cartography
+        if ($pathinfo === '/build/cartography') {
+            return array (  '_controller' => 'BrewingBundle\\Controller\\SetterController::buildCartographyAction',  '_route' => 'build_cartography',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

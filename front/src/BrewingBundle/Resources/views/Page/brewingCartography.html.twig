@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            {{ form_row((form.name)) }}
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div>
+                {{ form_label(form.temperatures)}}
+                {% do form.temperatures.setRendered %}
+
+                <ul id="temperature-fields-list"
+                    data-prototype="{{ form_widget(form.temperatures.vars.prototype)|e }}">
+                    {% for temperatureField in form.temperatures %}
+                        <li>
+                            {{ form_errors(temperatureField) }}
+                            {{ form_label(temperatureField)}}
+                            {{ form_widget(temperatureField) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <a href="#" id="add-another-temp">Add another Temperature</a>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts%}
+    {{ parent() }}
+    <script type="text/javascript">
+        // keep track of how many temperature fields have been rendered
+        var temperatureCount = '{{ form.temperatures|length }}';
+
+        jQuery(document).ready(function() {
+            jQuery('#add-another-temp').click(function(e) {
+                e.preventDefault();
+
+                var temperatureList = jQuery('#temperature-fields-list');
+
+                var newWidget = temperatureList.attr('data-prototype');
+                newWidget = newWidget.replace(/__name__/g, temperatureCount);
+                temperatureCount++;
+                var newLi = jQuery('<li></li>').html(newWidget);
+                newLi.appendTo(temperatureList);
+            });
+        })
+    </script>
+{% endblock %}

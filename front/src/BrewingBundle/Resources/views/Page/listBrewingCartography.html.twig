@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-10 col-sm-10 col-xs-10">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>temperatures</th>
+                    <th>is default</th>
+                    <th>Set as default</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for brewing_cartography in brewing_cartographies %}
+                    <tr>
+                        <td>{{  brewing_cartography.id }}</td>
+                        <td>{{  brewing_cartography.name }}</td>
+                        <td>
+                            {% for temperature in brewing_cartography.temperatures %}
+                                <div>
+                                    {% for key,value in temperature %}
+                                        || {{ key }} : {{ value }}
+                                    {% endfor %}
+                                    ||
+                                </div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if not brewing_cartography.isDefault == false  %}
+                                X
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if brewing_cartography.isDefault == false  %}
+                                <a>
+                                    <button type="button" class="btn btn-success">Set as default</button>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

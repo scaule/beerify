@@ -82,8 +82,9 @@ guzzle:
 
     clients:
         api_node:
-            base_url: "localhost:8080/api/"
+            base_url: "beer-api.dev/"
 
             # custom headers (@deprecated, will be removed in v6; new: "headers" in options (see below))
             headers:
                 Accept: "application/json"
+                Content-Type: "application/ld+json"

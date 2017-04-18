@@ -27,12 +27,6 @@ class Temperature
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="State", inversedBy="temperatures")
-     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
-     */
-    private $state;
-
-    /**
      * @var \Float value
      * @ORM\Column(type="float", precision = 3, scale = 2)
      */
@@ -43,6 +37,15 @@ class Temperature
      * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
+
+    /**
+     * Temperature constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
 
     /**
      * @return mixed
@@ -59,23 +62,7 @@ class Temperature
     {
         $this->id = $id;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param mixed $state
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-    }
-
+    
     /**
      * @return value
      */

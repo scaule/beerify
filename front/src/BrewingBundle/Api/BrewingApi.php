@@ -9,6 +9,8 @@
 namespace BrewingBundle\Api;
 
 
+use Symfony\Component\VarDumper\VarDumper;
+
 class BrewingApi {
 
     private $guzzle;
@@ -22,34 +24,29 @@ class BrewingApi {
         $this->guzzle = $guzzle;
     }
 
-    public function getLastBrewing(){
-        $client   = $this->guzzle;
-        $response = $client->get('brewing/last');
+    public function getLastBeer(){
+        $response = $this->guzzle->get('beer/last');
         
         return json_decode($response->getBody(), true);
     }
 
-    public function getProfilById($id){
-        $client   = $this->guzzle;
-        $response = $client->get('profil/'.$id);
+    public function getListBeers(){
+        $response = $this->guzzle->get('beers');
+
         return json_decode($response->getBody(), true);
     }
 
-    public function getTemperatureFromBrewing($id){
-        $client   = $this->guzzle;
-        $response = $client->get('temperature/brewing/'.$id);
+    public function getListBrewingCartographies(){
+        $response = $this->guzzle->get('brewing_cartographies');
+
         return json_decode($response->getBody(), true);
     }
 
-    public function getListProfiles(){
-        $client   = $this->guzzle;
-        $response = $client->get('profil');
-        return json_decode($response->getBody(), true);
-    }
+    public function sendBrewingCartography($data){
+        $response = $this->guzzle->post('brewing_cartographies',[
+           'body' => json_encode($data)
+        ]);
 
-    public function getListBrewing(){
-        $client   = $this->guzzle;
-        $response = $client->get('brewing');
-        return json_decode($response->getBody(), true);
+        return $response;
     }
 }
