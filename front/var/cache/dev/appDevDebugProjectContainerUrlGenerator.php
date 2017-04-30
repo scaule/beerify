@@ -40,6 +40,7 @@ class appDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'brewing_cartography_list' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'BrewingBundle\\Controller\\ListerController::listCartographyAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/list/brewing-cartography',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'get_last_brewing' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'BrewingBundle\\Controller\\ListerController::getCurrentBeerBrewingAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/api/brewing/last',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
         'build_cartography' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'BrewingBundle\\Controller\\SetterController::buildCartographyAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/build/cartography',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
+        'build_beer' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'BrewingBundle\\Controller\\SetterController::buildBeerAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/build/beer',    ),  ),  4 =>   array (  ),  5 =>   array (  ),),
     );
         }
     }
