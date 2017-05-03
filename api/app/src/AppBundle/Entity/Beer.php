@@ -56,6 +56,12 @@ class Beer
     private $fermentingCartography;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="is_current", type="boolean")
+     */
+    private $isCurrent;
+
+    /**
      * Beer constructor.
      */
     public function __construct()
@@ -168,6 +174,22 @@ class Beer
     public function setFermentingCartography($fermentingCartography)
     {
         $this->fermentingCartography = $fermentingCartography;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsCurrent()
+    {
+        return $this->isCurrent;
+    }
+
+    /**
+     * @param boolean $isCurrent
+     */
+    public function setIsCurrent($isCurrent)
+    {
+        $this->isCurrent = $isCurrent;
     }
 }
 

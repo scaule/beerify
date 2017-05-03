@@ -7,39 +7,25 @@ $(function() {
 
         var labels = [];
         var data = [];
-        var profilData = [];
+        var targetData = [];
 
-        var i = 0;
-        var j = 0;
-        while(i < response.temperature.length || j < response.profil.dates.length ){
-            if(response.temperature.length <= i ){
-                var date = new Date("2999/10/01");
-            }else {
-                var date = new Date(response.temperature[i].date);
-            }
+        //Found Brewing state for scheme
+        response.states.forEach(function(state) {
+            if(state.type.name === "Brewing"){
+                state.temperatures.forEach(function(temperature) {
 
-            if(response.profil.dates.length <= j){
-                var dateProfil = new Date("2999/10/01");
-            }else{
-                var dateProfil = new Date(response.profil.dates[j]);
+                    var date = new Date(temperature.createdAt.timestamp*1000);
+                    var hours = date.getHours();
+                    var minutes = "0" + date.getMinutes();
+                    var seconds = "0" + date.getSeconds();
+                    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                    labels.push(formattedTime);
+                    data.push(temperature.value);
+                    targetData.push(temperature.target);
+                });
             }
+         });
 
-            if(date < dateProfil){
-                labels.push(date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay() + " " +date.getHours() +":"+date.getMinutes()+":"+date.getSeconds());
-                data.push(response.temperature[i].value);
-                profilData.push(null);
-                i++;
-            }else{
-                labels.push(dateProfil.getFullYear() + "/" + dateProfil.getMonth() + "/" + dateProfil.getDay() + " " +dateProfil.getHours() +":"+dateProfil.getMinutes()+":"+dateProfil.getSeconds());
-                data.push(null);
-                if(j >= response.profil.temperatures.length){
-                    profilData.push(response.profil.temperatures[j-1]);
-                }else{
-                    profilData.push(response.profil.temperatures[j]);
-                }
-                j++;
-            }
-        }
 
         var ctx = document.getElementById("myChart");
         myChart = new Chart(ctx, {
@@ -70,7 +56,7 @@ $(function() {
                 },{
                     spanGaps: false,
                     label: 'profil',
-                    data: profilData,
+                    data: targetData,
                     spanGaps: true,
                     backgroundColor: [
                         'rgba(54, 162, 235, 1)'
@@ -118,41 +104,27 @@ function updateChart(){
     }).done(function(response) {
         var labels = [];
         var data = [];
-        var profilData = [];
-        var i = 0;
-        var j = 0;
-        while(i < response.temperature.length || j < response.profil.dates.length ){
-            if(response.temperature.length <= i ){
-                var date = new Date("2999/10/01");
-            }else {
-                var date = new Date(response.temperature[i].date);
-            }
+        var targetData = [];
 
-            if(response.profil.dates.length <= j){
-                var dateProfil = new Date("2999/10/01");
-            }else{
-                var dateProfil = new Date(response.profil.dates[j]);
-            }
+        //Found Brewing state for scheme
+        response.states.forEach(function(state) {
+            if(state.type.name === "Brewing"){
+                state.temperatures.forEach(function(temperature) {
 
-            if(date < dateProfil){
-                labels.push(date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay() + " " +date.getHours() +":"+date.getMinutes()+":"+date.getSeconds());
-                data.push(response.temperature[i].value);
-                profilData.push(null);
-                i++;
-            }else{
-                labels.push(dateProfil.getFullYear() + "/" + dateProfil.getMonth() + "/" + dateProfil.getDay() + " " +dateProfil.getHours() +":"+dateProfil.getMinutes()+":"+dateProfil.getSeconds());
-                data.push(null);
-                if(j >= response.profil.temperatures.length){
-                    profilData.push(response.profil.temperatures[j-1]);
-                }else{
-                    profilData.push(response.profil.temperatures[j]);
-                }
-                j++;
+                    var date = new Date(temperature.createdAt.timestamp*1000);
+                    var hours = date.getHours();
+                    var minutes = "0" + date.getMinutes();
+                    var seconds = "0" + date.getSeconds();
+                    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                    labels.push(formattedTime);
+                    data.push(temperature.value);
+                    targetData.push(temperature.target);
+                });
             }
-            myChart.data.labels = labels;
-            myChart.data.datasets[0].data = data;
-            myChart.data.datasets[1].data = profilData;
-            myChart.update();
-        }
+        });
+        myChart.data.labels = labels;
+        myChart.data.datasets[0].data = data;
+        myChart.data.datasets[1].data = targetData;
+        myChart.update();
     });
 }

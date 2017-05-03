@@ -36,7 +36,7 @@ class State
     /**
      * @Groups({"state"})
      * @ORM\ManyToOne(targetEntity="Beer", inversedBy="states")
-     * @ORM\JoinColumn(name="brewing_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="beer_id", referencedColumnName="id")
      */
     private $beer;
 

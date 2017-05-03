@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\VarDumper\VarDumper;
 
 class BrewingController extends Controller
 {
@@ -30,10 +31,39 @@ class BrewingController extends Controller
             array('id' => 'DESC')
           );
         $encoders = array(new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizers = array($normalizer);
         $serializer = new Serializer($normalizers, $encoders);
+        $currentBeer = $serializer->serialize($beer, 'json');
+        
+        return new Response($currentBeer);
+    }
 
-        return new Response($serializer->serialize($beer, 'json'));
+    /**
+     * @Route("/beer/current")
+     */
+    public function getCurrentBeerAction()
+    {
+        $beer = $this->getDoctrine()
+          ->getRepository('AppBundle:Beer')
+          ->findOneBy(
+            array('isCurrent' => true),
+            array('id' => 'DESC')
+          );
+
+        $encoders = array(new JsonEncoder());
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(function ($object) {
+            return $object->getId();
+        });
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers, $encoders);
+        $currentBeer = $serializer->serialize($beer, 'json');
+
+        return new Response($currentBeer);
     }
 
     /**
